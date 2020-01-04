@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr><td>No.</td><td>姓名</td><td>班级</td><td>性别</td><td>偶数</td><td>奇数</td></tr>
+    <tr th:each="college,memberStat:${college}">
+        <td th:text="${memberStat.index + 1}"/>
+        <td th:text="${college.name}"/>
+        <td th:text="${college.classnum}"/>
+        <td th:text="${college.sex}"/>
+        <td th:text="${memberStat.even}"/>
+        <td th:text="${memberStat.odd}"/>
+    </tr>
+</table>
+
+</body>
+</html>

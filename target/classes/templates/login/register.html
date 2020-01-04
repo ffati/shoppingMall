@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>新用户注册</title>
+    <div th:replace="../templates/publicContent/commen :: commenhead"></div>
+</head>
+<body style="height: 100%">
+<div th:replace="../templates/publicContent/topAssembly :: topAssembly"></div>
+
+
+<div style="width: 100%;height: auto;margin-left: 38%">
+<!--    <div class="layui-row">
+
+        <div class="layui-col-md1 layui-col-md-offset5">
+            <div class="grid-demo grid-demo-bg1">偏移5列</div>
+        </div>
+
+    </div>-->
+    <form class="layui-form" th:action="@{/register/registerUser}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机号码：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="phonenumber" required lay-verify="required" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">昵称：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" required lay-verify="required" placeholder="请输入昵称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="userpassword" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别：</label>
+            <div class="layui-input-inline">
+                <input type="radio" name="sex" value="1" title="男">
+                <input type="radio" name="sex" value="0" title="女" checked>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div th:replace="../templates/publicContent/bottomAssembly :: bottomAssembly"></div>
+
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+
+</script>
+
+</body>
+</html>

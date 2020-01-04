@@ -1,11 +1,11 @@
 # shoppingMall
-springBoot学习项目
+springBoot学习项目（前后端不分离）
 
 此项目为学习项目
 
 
 技术选型：
-后端：springboot/springSecurity/spring Date Jpa
+后端：springboot/springSecurity/spring Date Jpa/Thymeleaf
 
 前端框架：layui
 

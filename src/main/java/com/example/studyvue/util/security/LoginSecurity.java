@@ -47,6 +47,7 @@ public class LoginSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout().logoutSuccessUrl("/home/page")
                 ;
+        http.csrf().ignoringAntMatchers("/druid/*");
 
     }
 

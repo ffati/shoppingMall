@@ -1,6 +1,7 @@
 package com.example.studyvue.aop;
 
 
+import com.example.studyvue.util.common.UUIDUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -9,12 +10,15 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
+import java.util.UUID;
 
 
 /**
@@ -30,18 +34,29 @@ import java.util.Enumeration;
 @Component
 public class LogAspect {
 
-    private Logger logger =  LogManager.getLogger(getClass());
+    @Autowired
+    private UUIDUtil uuidUtil;
 
-    @Pointcut("execution(public * com.example.studyvue.service.*.*(..))")
+    private String uuidGeneratorString;
+
+    private Logger logger =  LogManager.getLogger(LogAspect.class);
+    //@Pointcut("@annotation(com.example.studyvue.util.annotation.Logging)")
+    @Pointcut("execution(public * com.example.studyvue.service..*.*(..))")
+    //包及其子包下的所有方法，service.*(..)单包下所有方法
     public void webLog() {
 
     }
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
+        System.out.println("----------------------------------切面织入测试----------------------------------");
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
+
+        uuidGeneratorString=uuidUtil.uuidGenerator();
+        MDC.put("traceId",uuidGeneratorString);
+
         // 记录下请求内容
         logger.info("---------------request----------------");
         logger.info("URL : " + request.getRequestURL().toString());
@@ -55,6 +70,7 @@ public class LogAspect {
     }
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) throws Throwable {
+        MDC.put("traceId",uuidGeneratorString);
         logger.info("---------------response----------------");
         // 处理完请求，返回内容
         logger.info("RESPONSE : " + ret);

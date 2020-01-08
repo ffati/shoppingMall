@@ -51,7 +51,7 @@ public class RegisterController {
      */
     @RequestMapping("/registerUser")
     @ResponseBody
-    public Message registerUser(Model model,
+    public synchronized Message registerUser(Model model,
                                UserEntity user
                                ){
         Message message= new Message();
@@ -71,7 +71,7 @@ public class RegisterController {
             return message;
         }
 
-        user.setUsercategory("user");
+        user.setUsercategory("ROLE_USER");
 
         //生成identityId
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMM");

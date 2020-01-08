@@ -17,7 +17,7 @@
             <div sec:authorize="isAuthenticated()" style="margin-right: 10px">
 
                 <form th:action="@{/logout}" method="post">
-                    <span sec:authentication="name"></span>:您好
+                    <a href="/personalHomepage/homepage"><span sec:authentication="name"></span></a>:您好
                     <button onclick="submit">登出</button>
 
                 </form>

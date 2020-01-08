@@ -26,7 +26,7 @@ public class UserEntity {
     @Column(name = "userName",nullable = false)
     private String username;
     /**手机号码*/
-    @Column(name = "phoneNumber",nullable = false)
+    @Column(name = "phoneNumber",nullable = false,unique = true)
     private String phonenumber;
     /**用户类别*/
     @Column(name = "userCategory")

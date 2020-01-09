@@ -8,21 +8,81 @@
     <div th:replace="../templates/publicContent/commen :: commenhead"></div>
 </head>
 <body>
+<div style="width: 100%;height: 100%;position: absolute">
 <div th:replace="../templates/publicContent/topAssembly :: topAssembly"></div>
-<td th:text="${CurrentUserVo.identityid}"/>
-欢迎
-<div>
-    <!--<img th:src="@{/personalHomepage/showHeadSculpture(pictureName=${CurrentUserVo.identityid}+'.jpg')}"/>-->
-    <img style="width: 60px;height: 60px" th:src="@{/personalHomepage/showHeadSculpture(pictureName=${CurrentUserVo.identityid}+'.jpg')}"/>
-    
+
+    <div class="layui-row">
+        <div class="layui-col-xs4 layui-col-md3">
+            <div class="grid-demo grid-demo-bg1">
+
+                <div style="width: 100%" align="center">
+                    <img style="width: 60px;height: 60px" th:src="@{/personalHomepage/showHeadSculpture(pictureName=${CurrentUserVo.pictureaddress})}"/>
+                </div>
+
+            </div>
+            <div class="layui-form-item">
+                <div align="center" style="margin: 10px">
+                <input type="button" id="uploadPic" class="layui-btn layui-btn-normal layui-btn-radius"
+                       value="重新上传头像"/>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-col-xs8 layui-col-md9">
+            <div class="grid-demo">
+                <div style="width: 100%" align="left">
+                    <div class="layui-form-item">
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">姓名：</label>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label" th:text="${CurrentUserVo.username}"></label>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">id:</label>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label identityid" th:text="${CurrentUserVo.identityid}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户类别：</label>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label" th:text="${CurrentUserVo.usercategory}"></label>
+                                <span style="margin-top: 3px"><button class="layui-btn  layui-btn-xs layui-btn-normal" onclick="changerole()">更改</button></span>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户级别:</label>
+                            <div class="layui-input-inline">
+                                <label class="layui-form-label" th:text="${CurrentUserVo.userlevel}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
-<div th:replace="../templates/publicContent/bottomAssembly :: bottomAssembly"></div>
-
+    <div style="bottom: 0px;position: absolute;width: 100%">
+<div  th:replace="../templates/publicContent/bottomAssembly :: bottomAssembly"></div>
+</div>
+</div>
 <script>
 
-    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function(){
+    var tokenparam=$("meta[name='_csrf']").attr("content");
+    var headerparam=$("meta[name='_csrf_header']").attr("content");
+
+
+    var identityid=document.getElementsByClassName("identityid")[0].innerHTML;
+    console.log(identityid);
+    layui.use(['form','laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'slider'], function(){
         var laydate = layui.laydate //日期
             ,laypage = layui.laypage //分页
             ,layer = layui.layer //弹层
@@ -31,11 +91,18 @@
             ,upload = layui.upload //上传
             ,element = layui.element //元素操作
             ,slider = layui.slider //滑块
+            ,form=layui.form
 
         //执行实例
         var uploadInst = upload.render({
-            elem: '#test1' //绑定元素
-            ,url: '/upload/' //上传接口
+            elem: '#uploadPic' //绑定元素
+            ,accept:'image'
+            ,field:'file'
+            ,size:'100'
+            ,method: 'POST'
+            ,data:{id:identityid}
+            ,headers:{"X-CSRF-TOKEN":tokenparam}
+            ,url: '/personalHomepage/uploadHeadSculpture' //上传接口
             ,done: function(res){
                 //上传完毕回调
             }
@@ -43,7 +110,23 @@
                 //请求异常回调
             }
         });
+
     });
+
+    function changerole() {
+        layer.open({
+            type: 2,
+            title: "会员",
+            shadeClose: false,
+            shade: 0.5,
+            maxmin:true,
+            area: ['400px', '300px'],
+            content: '/personalHomepage/updateUserPage',
+            //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+            //btn: ['确认','取消']
+
+        })
+    }
 </script>
 
 </body>

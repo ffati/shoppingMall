@@ -1,4 +1,4 @@
-package com.example.studyvue.controller.register;
+package com.example.studyvue.controller.UserManage;
 
 import com.example.studyvue.entity.UserEntity;
 import com.example.studyvue.service.user.UserService;
@@ -25,8 +25,8 @@ import java.util.Date;
  */
 
 @Controller
-@RequestMapping("/register")
-public class RegisterController {
+@RequestMapping("/userManage")
+public class UserManageController {
 
     @Autowired
     private UserService userService;
@@ -36,7 +36,7 @@ public class RegisterController {
 
 
 
-    @RequestMapping("/newUser")
+    @RequestMapping("/newUserPage")
     public String registerPage(){
         return "login/register";
     }
@@ -72,7 +72,7 @@ public class RegisterController {
         }
 
         user.setUsercategory("ROLE_USER");
-
+        user.setUserlevel("1");
         //生成identityId
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMM");
         StringBuffer identityIdString=new StringBuffer(simpleDateFormat.format(new Date()));
@@ -103,5 +103,36 @@ public class RegisterController {
         message.setInformation("注册成功！");
         return message;
     }
+
+
+    /**
+     * @author: ff
+     * @date: 2020/1/9 13:34
+     * @param: [userEntity]
+     * @return: com.example.studyvue.vo.Message
+     * 更新用户信息
+     */
+    @ResponseBody
+    @RequestMapping("/updateUser")
+    public Message updateUser(String userCategory,String identityid){
+
+        Message message=new Message();
+        if (userCategory==""){
+            message.setStatusCode("500");
+            message.setInformation("更新失败！");
+            return message;
+        }
+
+        UserEntity userEntity=new UserEntity();
+        userEntity.setIdentityid(identityid);
+        userEntity=userService.findByAnyParameter(userEntity);
+        userEntity.setUsercategory(userCategory);
+        userService.updateUser(userEntity);
+
+        message.setStatusCode("200");
+        message.setInformation("更新成功！");
+        return message;
+    }
+
 
 }

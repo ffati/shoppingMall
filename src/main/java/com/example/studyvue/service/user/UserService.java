@@ -28,4 +28,5 @@ public interface UserService {
 
    List<RoleEntity> findAllRole();
 
+   void updateUser(UserEntity userEntity);
 }

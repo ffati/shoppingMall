@@ -55,6 +55,13 @@ public class UserServiceImpl implements UserService {
         userDao.save(userEntity);
     }
 
+    /**
+     * @author: ff
+     * @date: 2020/1/8 20:17
+     * @param: []
+     * @return: java.lang.Integer
+     * 查询最大id数
+     */
     @Override
     public Integer findMaxID() {
         return userDao.findMaxId();
@@ -79,8 +86,28 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    /**
+     * @author: ff
+     * @date: 2020/1/8 20:14
+     * @param: []
+     * @return: java.util.List<com.example.studyvue.entity.RoleEntity>
+     *     查询角色列表
+     */
     @Override
     public List<RoleEntity> findAllRole() {
         return roleDao.findAll();
+    }
+
+    /**
+     * @author: ff
+     * @date: 2020/1/8 20:14
+     * @param: [userEntity]
+     * @return: void
+     * 更新
+     */
+    @Override
+    public void updateUser(UserEntity userEntity) {
+
+        userDao.save(userEntity);
     }
 }

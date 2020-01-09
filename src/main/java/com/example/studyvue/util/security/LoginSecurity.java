@@ -33,7 +33,7 @@ public class LoginSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 
                 .antMatchers("/home/page").permitAll()
-                .antMatchers("/shopCart/**").hasRole("ADMIN")
+                .antMatchers("/shopCart/**").hasRole("VIP")
                 //.anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
@@ -44,11 +44,11 @@ public class LoginSecurity extends WebSecurityConfigurerAdapter {
                 .usernameParameter("phone").passwordParameter("pnum").loginPage("/login")//自定义参数
                 .permitAll()
                 .failureUrl("/loginError")
+                .and().headers().frameOptions().disable()//iframe嵌套
                 .and()
                 .logout().logoutSuccessUrl("/home/page")
                 ;
         http.csrf().ignoringAntMatchers("/druid/*");
-
     }
 
 

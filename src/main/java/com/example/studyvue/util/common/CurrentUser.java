@@ -45,7 +45,7 @@ public CurrentUserVo currentUser(HttpSession session){
     currentUserVon.setRegistrationTime(userEntity.getRegistrationTime());
     currentUserVon.setUsercategory(userEntity.getUsercategory());
     currentUserVon.setPictureaddress(userEntity.getPictureaddress());
-
+    currentUserVon.setUserlevel(userEntity.getUserlevel());
 
     return currentUserVon;
 

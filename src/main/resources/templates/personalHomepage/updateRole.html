@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title> $Title$</title>
+    <div th:replace="../templates/publicContent/commen :: commenhead"></div>
+</head>
+<body>
+<div >
+<form class="" th:action="@{/userManage/updateUser}" method="post">
+    <input type="hidden" name="identityid" th:value="${identityid}" />
+    <div class="layui-form-item">
+    <label class="layui-form-label">请选择</label>
+
+    <select name="userCategory" style="color: #40AFFE" class="" lay-verify="">
+        <option value="">请选择充钱数量</option>
+        <option value="ROLE_VIP">100</option>
+        <option value="ROLE_SVIP">200</option>
+    </select>
+    </div>
+<button class="layui-btn layui-btn-norma" type="submit">确定</button>
+
+</form>
+</div>
+
+</body>
+</html>

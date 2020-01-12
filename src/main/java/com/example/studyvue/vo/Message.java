@@ -1,6 +1,8 @@
 package com.example.studyvue.vo;
 
 
+import java.io.Serializable;
+
 /**
  * @ClassName Message
  * @Description TODO
@@ -10,7 +12,7 @@ package com.example.studyvue.vo;
  * @Version 1.0
  */
 
-public class Message {
+public class Message implements Serializable {
 
     //页面显示或不显示此信息
     private String showOrNot;

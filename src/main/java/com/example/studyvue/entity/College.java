@@ -2,11 +2,12 @@ package com.example.studyvue.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "college")
 
-public class College {
+public class College implements Serializable {
 
     @Id
     @GeneratedValue

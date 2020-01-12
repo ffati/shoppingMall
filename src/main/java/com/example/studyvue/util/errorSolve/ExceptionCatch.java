@@ -46,7 +46,7 @@ public class ExceptionCatch {
  */
     @ExceptionHandler(Exception.class)
     public ModelAndView exception(HttpServletRequest httpServletRequest,Exception e) {
-
+        System.out.println(e);
         ModelAndView modelAndView=new ModelAndView();
         Message message=new Message();
         message.setStatusCode("201");

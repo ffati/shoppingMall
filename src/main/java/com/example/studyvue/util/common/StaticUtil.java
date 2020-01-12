@@ -1,5 +1,6 @@
 package com.example.studyvue.util.common;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -38,7 +39,14 @@ public class StaticUtil {
         }
     }
 
-    //头像路径
+    /**
+     * @author: ff
+     * @date:
+     * @param: []
+     * @return: java.lang.String
+     * 头像路径
+     */
+
     public static String pictureDirPath(){
 
         String filePath= null;
@@ -54,6 +62,24 @@ public class StaticUtil {
 
         }
         return fileDirPath;
+    }
+
+
+    /**
+     * @author: ff
+     * @date: 2020/1/10 16:35
+     * @param: [pojoParm]
+     * @return: java.lang.String
+     * 任意类型转json
+     */
+    public static <T> String convertedIntoJsonString(T pojoParm){
+
+        if (null==pojoParm){
+            return null;
+        }
+        /*Class <?> pojoType=pojoParm.getClass();*/
+        return JSON.toJSONString(pojoParm);
+
     }
 
 

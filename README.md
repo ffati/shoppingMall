@@ -1,4 +1,4 @@
-# shoppingMall
+# shoppingMall（暂停中，项目中并不涉及真实业务）
 springBoot学习项目（前后端不分离）
 
 此项目为学习项目
